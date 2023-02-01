@@ -1,8 +1,9 @@
 export const animalSchema = {
 	_id: { type: 'string', format: 'uuid' },
 	name: { type: 'string' },
-	unit: { type: 'number' },
-	race: { type: 'string' },
+	type: { type: 'string' },
+	breed: { type: 'string' },
+	birthDate: { type: 'string', format: 'date'},
 	created_at: { type: 'string', format: 'date-time' },
 	updated_at: { type: 'string', format: 'date-time' }
 };

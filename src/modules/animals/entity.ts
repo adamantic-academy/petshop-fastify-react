@@ -27,10 +27,7 @@ export class Animal {
   type: AnimalType;
   
   @Column()
-  unit: number;
-
-  @Column()
-  race: string;
+  breed: string;
 
   @Column({ type: 'date' })
   birthDate: Date;

@@ -1,0 +1,23 @@
+[
+	{
+        "name":      "Cookie",
+        "type":      "DOG",
+        "breed":     "Pinscher",
+        "birthDate": "2017-01-23"
+	},
+
+    {
+        "name":      "Nani",
+        "type":      "CAT",
+        "breed":     "Persian",
+        "birthDate": "2021-04-25"
+    },
+
+    {
+        "name":      "Nefertiti",
+        "type":      "CAT",
+        "breed":     "Aegyptian",
+        "birthDate": "2020-03-12"
+    }
+
+]

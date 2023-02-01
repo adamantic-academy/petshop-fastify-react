@@ -4,8 +4,7 @@ const animals = [
 	{
 		_id: '5f2678dff22e1f4a3c0782ee',
 		name: 'JBL Headphone',
-		race: 'Electronic appliances',
-		unit: 1,
+		breed: 'Electronic appliances',
 	}
 ];
 
@@ -85,8 +84,7 @@ describe('Server', () => {
 			payload: {
 				_id: '5f2678dff22e1f4a3c9992ee',
 				name: 'Apple Headphone',
-				race: 'Electronic appliances',
-				unit: 2
+				breed: 'Electronic appliances',
 			}
 		});
 		expect(res.statusCode).toBe(201);
@@ -98,7 +96,7 @@ describe('Server', () => {
 			method: 'PUT',
 			url: '/animal/5f2678dff22e1f4a3c0782ee',
 			payload: {
-				unit: 2
+				breed: 'Chihuahua'
 			}
 		});
 		expect(res.statusCode).toBe(200);

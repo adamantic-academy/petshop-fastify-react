@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon --watch './src/**/*.ts' --exec ts-node ./src/index.ts",
     "build": "tsc",
+    "load-test-data": "ts-node ./src/scripts/load-test-data.ts",
     "test": "jest --coverage",
     "test:watch": "npm run test -- --watchAll",
     "commit": "git cz"

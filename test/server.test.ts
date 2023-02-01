@@ -1,10 +1,12 @@
-import typeorm = require('typeorm');
+//import typeorm = require('typeorm');
 
 const animals = [
 	{
 		_id: '5f2678dff22e1f4a3c0782ee',
-		name: 'JBL Headphone',
-		breed: 'Electronic appliances',
+		name:      'Cookie',
+		type:      'DOG',
+		breed:     'Pinscher',
+		birthDate: '2017-01-23'
 	}
 ];
 
@@ -17,17 +19,22 @@ const dbMock = {
 	},
 };
 
-typeorm.createConnection = jest.fn().mockReturnValue({
-	getRepository: (model) => dbMock[model.name],
+jest.mock('typeorm', () => {
+	createConnection: jest.fn().mockReturnValue({
+		getRepository: (model) => dbMock[model.name],
+	});
+	
+	getConnectionOptions: jest.fn().mockReturnValue({});
 });
 
-typeorm.getConnectionOptions = jest.fn().mockReturnValue({});
-
-describe('Server', () => {
+describe('Server', async () => {
 	let server;
 
 	beforeEach(async () => {
-		server = await require('../src/index');
+		console.log('AHAHAHA');
+		server = await import('../src/index');
+//		server = await require('../src/index');
+		console.log('server is ready', server);
 		await server.ready();
 	});
 
@@ -83,8 +90,10 @@ describe('Server', () => {
 			url: '/animal',
 			payload: {
 				_id: '5f2678dff22e1f4a3c9992ee',
-				name: 'Apple Headphone',
-				breed: 'Electronic appliances',
+				name:      'Nani',
+				type:      'CAT',
+				breed:     'Persian',
+				birthDate: '2021-04-25'
 			}
 		});
 		expect(res.statusCode).toBe(201);
@@ -96,7 +105,7 @@ describe('Server', () => {
 			method: 'PUT',
 			url: '/animal/5f2678dff22e1f4a3c0782ee',
 			payload: {
-				breed: 'Chihuahua'
+				breed: 'Aegyptian'
 			}
 		});
 		expect(res.statusCode).toBe(200);

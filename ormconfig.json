@@ -1,6 +1,6 @@
 {
     "type": "sqlite",
-    "database": "./data/db.sq3",
+    "database": "./data/db.sqlite3",
     "useNewUrlParser": true,
     "synchronize": true,
     "logging": true,

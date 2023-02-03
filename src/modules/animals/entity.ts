@@ -26,11 +26,20 @@ export class Animal {
   })
   type: AnimalType;
   
-  @Column()
+  @Column({ nullable: true })
   breed: string;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date', nullable: true })
   birthDate: Date;
+
+  @Column({ nullable: true })
+  imgUrl: string;
+
+  @Column({ nullable: true })
+  description: string;
+
+  @Column({ type: 'boolean', default: false })
+  pedigree: boolean;
 
   @CreateDateColumn()
   created_at: Date;

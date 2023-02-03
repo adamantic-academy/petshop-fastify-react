@@ -4,6 +4,9 @@ export const animalSchema = {
 	type: { type: 'string' },
 	breed: { type: 'string' },
 	birthDate: { type: 'string', format: 'date'},
+	imgUrl: { type: 'string' },
+	description: { type: 'string' },
+	pedigree: { type: 'boolean' },
 	created_at: { type: 'string', format: 'date-time' },
 	updated_at: { type: 'string', format: 'date-time' }
 };

@@ -1,4 +1,6 @@
-import { listAnimalsSchema, deleteAnimalSchema } from './schema';
+import {deleteAnimalSchema, listAnimalsSchema} from './schema';
+import {getAnimalContractService} from "../common/ServiceFactory";
+import {Animal} from "./entity";
 
 export default function animalHandler(server, options, next) {
 	server.get(
@@ -19,7 +21,9 @@ export default function animalHandler(server, options, next) {
 
 	server.post('/', async (req, res) => {
 		req.log.info('Add animals to db');
-		const animals = await server.db.animals.save(req.body);
+		let animals = await server.db.animals.save(req.body) as Animal;
+		animals.transactionHash = await getAnimalContractService().creteAnimal(animals);
+		animals = await server.db.animals.save(req.body) as Animal;
 		res.status(201).send(animals);
 	});
 

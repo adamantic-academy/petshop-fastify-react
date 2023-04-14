@@ -18,7 +18,7 @@ function createServer() {
 				version: '0.1.0'
 			},
 			servers: [
-				{ url: 'http://localhost:3000', description: 'development' },
+				{ url: 'http://localhost:3001', description: 'development' },
 				{
 					url: 'https://<production-url>',
 					description: 'production'

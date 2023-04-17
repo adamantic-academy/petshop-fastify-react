@@ -24,7 +24,12 @@
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.1.4",
     "typeorm": "^0.2.32",
-    "@hyperledger/fabric-gateway": "^1.1.1"
+    "@hyperledger/fabric-gateway": "^1.1.1",
+    "fabric-contract-api": "^2.4.0",
+    "fabric-shim": "^2.4.0",
+    "json-stringify-deterministic": "^1.0.1",
+    "sort-keys-recursive": "^2.1.2"
+
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",

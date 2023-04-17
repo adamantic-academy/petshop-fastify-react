@@ -34,6 +34,16 @@ export default function animalHandler(server, options, next) {
 		res.status(200).send(animals);
 	});
 
+	server.put('/:_id/name', async (req, res) => {
+		req.log.info('Update animal name to db');
+		const _id = req.params._id;
+		const animal = await server.db.animals.findOne(req.params._id);
+		animal.transactionHash = await getAnimalContractService().updateAnimalName(animal._id, req.body.name );
+		animal.name = req.body.name;
+		const animals = await server.db.animals.save({ _id, ...animal });
+		res.status(200).send(animals);
+	});
+
 	server.delete(
 		'/:_id',
 		{ schema: deleteAnimalSchema },

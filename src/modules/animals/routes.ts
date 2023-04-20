@@ -44,6 +44,17 @@ export default function animalHandler(server, options, next) {
 		res.status(200).send(animals);
 	});
 
+	server.get('/:name/name', async (req, res) => {
+		req.log.info('Update animal name to db');
+		const name = req.params.name;
+		res.status(200).send(await getAnimalContractService().searchAnimalByName(name));
+	});
+
+	server.get('/:_id/history', async (req, res) => {
+		req.log.info('transaction animal history');
+		res.send(await getAnimalContractService().animalHistory(req.params._id));
+	});
+
 	server.delete(
 		'/:_id',
 		{ schema: deleteAnimalSchema },

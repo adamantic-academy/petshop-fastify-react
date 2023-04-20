@@ -4,6 +4,7 @@ import {BlockchainServiceInterface} from '../fabric/interface/BlockchainServiceI
 import {getBlockchainService} from '../common/ServiceFactory';
 import config from '../../config/Config';
 import {TextDecoder} from 'util';
+import {AnimalBlockchain} from "./dto/animalBlockchain";
 
 export class AnimalContractService implements AnimalContractServiceInterface {
 
@@ -17,10 +18,8 @@ export class AnimalContractService implements AnimalContractServiceInterface {
 
         try {
             const commit = await contract.submitAsync('CreateAnimal',
-                {arguments: [animal._id, animal.name, animal.type, animal.breed, animal.birthDate.toString(), animal.description, String(animal.pedigree)]});
+                {arguments: [JSON.stringify(new AnimalBlockchain(animal))]});
 
-            const resultJson = this.utf8Decoder.decode(commit.getResult());
-            console.log(resultJson);
             return commit.getTransactionId();
         } catch (error) {
             console.log("Error during the transaction with message: ", error);
@@ -42,6 +41,40 @@ export class AnimalContractService implements AnimalContractServiceInterface {
             console.log("Error during the animal name update with message: ", error);
             throw error;
         }
+    }
+
+    async animalHistory(id: string): Promise<string> {
+        const gateway = await this.blockchainService.connect();
+        const network = gateway.getNetwork(config.fabric.channel.name);
+        const contract = network.getContract(config.fabric.chaincode.name);
+        try {
+            const resultBytes = await contract.evaluateTransaction('GetAnimalHistory',
+                id);
+            const resultJson = this.utf8Decoder.decode(resultBytes);
+            return this.prettyJSONString(resultJson);
+        } catch (error) {
+            console.log("Error during the animal name update with message: ", error);
+            throw error;
+        }
+    }
+
+    async searchAnimalByName(animalName: string): Promise<AnimalBlockchain> {
+        const gateway = await this.blockchainService.connect();
+        const network = gateway.getNetwork(config.fabric.channel.name);
+        const contract = network.getContract(config.fabric.chaincode.name);
+        try {
+            const resultBytes = await contract.evaluateTransaction('AnimalSearch',
+                `{"selector":{"name": "${animalName}"} }`);
+            const resultJson = this.utf8Decoder.decode(resultBytes);
+            return JSON.parse(resultJson) as AnimalBlockchain;
+        } catch (error) {
+            console.log("Error during the animal name update with message: ", error);
+            throw error;
+        }
+    }
+
+    private prettyJSONString(inputString) {
+        return JSON.stringify(JSON.parse(inputString), null, 2);
     }
 
 }
